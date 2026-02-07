@@ -3,7 +3,6 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import {
     GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    GOOGLE_PRIVATE_KEY,
     GOOGLE_SHEET_ID,
 } from 'astro:env/server';
 
@@ -35,7 +34,8 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_SHEET_ID) {
+        const privateKey = process.env.GOOGLE_PRIVATE_KEY?.split(String.raw`\n`).join('\n');
+        if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !privateKey || !GOOGLE_SHEET_ID) {
             console.error('Missing configuration');
             return new Response(
                 JSON.stringify({ error: 'Newsletter signup is not configured' }),
@@ -43,12 +43,11 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        console.log('Key starts with:', GOOGLE_PRIVATE_KEY.substring(0, 20));
+        console.log('Key starts with:', privateKey.substring(0, 20));
 
-        const formattedKey = GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n').replace(/"/g, '');
         const serviceAccountAuth = new JWT({
             email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-            key: formattedKey,
+            key: privateKey,
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
         });
 
