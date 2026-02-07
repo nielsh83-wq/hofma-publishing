@@ -173,12 +173,12 @@ const _internalGetSecret = (key) => {
 
 setOnSetGetEnv(() => {
 	GOOGLE_SERVICE_ACCOUNT_EMAIL = _internalGetSecret("GOOGLE_SERVICE_ACCOUNT_EMAIL");
-GOOGLE_PRIVATE_KEY = _internalGetSecret("GOOGLE_PRIVATE_KEY");
+_internalGetSecret("GOOGLE_PRIVATE_KEY");
 GOOGLE_SHEET_ID = _internalGetSecret("GOOGLE_SHEET_ID");
 
 });
 let GOOGLE_SERVICE_ACCOUNT_EMAIL = _internalGetSecret("GOOGLE_SERVICE_ACCOUNT_EMAIL");
-let GOOGLE_PRIVATE_KEY = _internalGetSecret("GOOGLE_PRIVATE_KEY");
+_internalGetSecret("GOOGLE_PRIVATE_KEY");
 let GOOGLE_SHEET_ID = _internalGetSecret("GOOGLE_SHEET_ID");
 
 const prerender = false;
@@ -203,18 +203,18 @@ const POST = async ({ request }) => {
         { status: 400, headers }
       );
     }
-    if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_SHEET_ID) {
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.split(String.raw`\n`).join("\n");
+    if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !privateKey || !GOOGLE_SHEET_ID) {
       console.error("Missing configuration");
       return new Response(
         JSON.stringify({ error: "Newsletter signup is not configured" }),
         { status: 500, headers }
       );
     }
-    console.log("Key starts with:", GOOGLE_PRIVATE_KEY.substring(0, 20));
-    const formattedKey = GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n").replace(/"/g, "");
+    console.log("Key starts with:", privateKey.substring(0, 20));
     const serviceAccountAuth = new JWT({
       email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      key: formattedKey,
+      key: privateKey,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"]
     });
     const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID, serviceAccountAuth);
