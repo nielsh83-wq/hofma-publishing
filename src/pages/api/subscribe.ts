@@ -35,7 +35,6 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        // Tjek variabler
         if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_SHEET_ID) {
             console.error('Missing configuration');
             return new Response(
@@ -44,13 +43,9 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        // FORMATERING AF NØGLE: 
-        // Vi fjerner eventuelle ydre anførselstegn og omdanner \n til rigtige linjeskift
-        const formattedKey = GOOGLE_PRIVATE_KEY
-            .replace(/^["']|["']$/g, '') // Fjerner " eller ' i starten og slutningen
-            .split(String.raw`\n`)      // Find bogstaverne \ og n
-            .join('\n');                // Lav dem om til rigtigt linjeskift
+        console.log('Key starts with:', GOOGLE_PRIVATE_KEY.substring(0, 20));
 
+        const formattedKey = GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n').replace(/"/g, '');
         const serviceAccountAuth = new JWT({
             email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
             key: formattedKey,
