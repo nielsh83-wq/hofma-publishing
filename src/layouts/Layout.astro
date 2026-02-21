@@ -62,12 +62,27 @@ const { title = 'Hofma Publishing', description = 'Independent publishing house 
 		<!-- Meta Pixel noscript - only when JS disabled; no tracking without consent -->
 		<header class="site-header">
 			<div class="header-inner">
-				<a href="/" class="logo">Hofma Publishing</a>
-				<nav class="nav">
-					<a href="/">Home</a>
-					<a href="/blog/">Blog</a>
-					<a href="/about/">About</a>
-				</nav>
+				<a href="/" class="logo">
+					<img src="/images/logo.png" alt="Hofma Publishing logo" class="logo-img" />
+				</a>
+				<div class="header-right">
+					<nav class="nav">
+						<a href="/">Home</a>
+						<a href="/blog/">Blog</a>
+						<a href="/about/">About</a>
+					</nav>
+					<div class="social-icons">
+						<a href="https://www.facebook.com/hofmapublishing/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Hofma Publishing on Facebook">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+						</a>
+						<span class="social-icon disabled" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+						</span>
+						<span class="social-icon disabled" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+						</span>
+					</div>
+				</div>
 				<button class="nav-toggle" aria-label="Toggle menu">
 					<span></span>
 					<span></span>
@@ -82,6 +97,19 @@ const { title = 'Hofma Publishing', description = 'Independent publishing house 
 
 		<footer class="site-footer">
 			<div class="footer-inner">
+				<div class="footer-social">
+					<div class="social-icons">
+						<a href="https://www.facebook.com/hofmapublishing/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Hofma Publishing on Facebook">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+						</a>
+						<span class="social-icon disabled" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+						</span>
+						<span class="social-icon disabled" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+						</span>
+					</div>
+				</div>
 				<p>&copy; {new Date().getFullYear()} Hofma Publishing. All rights reserved. <button type="button" class="footer-cookie-btn" data-cc="show-preferencesModal">Cookie preferences</button></p>
 				<nav class="footer-nav">
 					<a href="/">Home</a>
@@ -185,6 +213,47 @@ const { title = 'Hofma Publishing', description = 'Independent publishing house 
 				color: var(--color-accent);
 			}
 
+			.logo img {
+				height: 48px;
+				width: auto;
+			}
+
+			.header-right {
+				display: flex;
+				align-items: center;
+				gap: var(--space-lg);
+			}
+
+			.social-icons {
+				display: flex;
+				gap: var(--space-sm);
+				align-items: center;
+			}
+
+			.social-icon {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				color: inherit;
+				transition: opacity 0.2s ease;
+			}
+
+			.social-icon svg {
+				width: 20px;
+				height: 20px;
+				flex-shrink: 0;
+			}
+
+			a.social-icon:hover {
+				opacity: 0.7;
+			}
+
+			.social-icon.disabled {
+				opacity: 0.4;
+				cursor: default;
+				pointer-events: none;
+			}
+
 			.nav {
 				display: flex;
 				gap: var(--space-lg);
@@ -217,6 +286,14 @@ const { title = 'Hofma Publishing', description = 'Independent publishing house 
 			}
 
 			@media (max-width: 768px) {
+				.logo img {
+					height: 40px;
+				}
+
+				.header-right {
+					gap: var(--space-sm);
+				}
+
 				.nav {
 					display: none;
 					position: absolute;
@@ -259,6 +336,17 @@ const { title = 'Hofma Publishing', description = 'Independent publishing house 
 				justify-content: space-between;
 				align-items: center;
 				gap: var(--space-md);
+			}
+
+			.footer-social {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				margin-bottom: var(--space-sm);
+			}
+
+			.footer-social .social-icons .social-icon {
+				color: var(--color-bg);
 			}
 
 			.footer-nav {

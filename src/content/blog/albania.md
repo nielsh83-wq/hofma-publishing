@@ -21,6 +21,7 @@ Facts about Albania highlight a Balkan country where mountains, historic sites, 
 - **Official language(s):** Albanian  
 - **National Day:** 28 November  
 
+
 ## Geography and Landscape
 
 Albania lies in Southeastern Europe on the Balkan Peninsula. Although its area is 28,748 km², the landscape changes quickly from one region to the next. Much of the country is mountainous and hilly, creating dramatic views, steep valleys, and small settlements spread across higher ground. One of the clearest indicators of Albania’s rugged terrain is its highest mountain: Maja e Korabit, reaching 2,764 meters. This peak stands near the eastern border and is a defining feature of the country’s mountain geography.
